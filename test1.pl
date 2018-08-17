@@ -1,3 +1,10 @@
+/*
+ * Test on a sequence of substitution boxes and xors
+ */
+
+/* This test requires metagol
+ * https://github.com/metagol/metagol
+ */
 :- use_module('../metagol').
 
 /* TODO

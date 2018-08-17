@@ -1,3 +1,7 @@
+/*
+ * Test on simple logic
+ */
+
 /* A featherless biped is a human */
 human(featherless_biped).
 
