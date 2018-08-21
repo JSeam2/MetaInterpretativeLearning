@@ -13,7 +13,11 @@
  * https://github.com/metagol/metagol
  */
 :- use_module('../metagol').
-metagol:max_clauses(50).
+metagol:max_clauses(1000).
+
+
+%% predicates that can be used in learning
+prim(myNand/2).
 
 %% definition of tokens
 /*
@@ -43,25 +47,24 @@ metagol:max_clauses(50).
  *  1 0 1
  *  1 1 0 
  */
-nand(a, d).
-nand(b, d).
-nand(c, d).
-nand(d, d).
-nand(e, d).
-nand(f, c).
-nand(g, d).
-nand(h, c).
-nand(i, c).
-nand(j, d).
-nand(k, b).
-nand(l, b).
-nand(m, d).
-nand(n, c).
-nand(o, b).
-nand(p, a).
+myNand(a, d).
+myNand(b, d).
+myNand(c, d).
+myNand(d, d).
+myNand(e, d).
 
-%% predicates that can be used in learning
-prim(nand/2).
+myNand(f, c).
+myNand(g, d).
+myNand(h, c).
+myNand(i, d).
+myNand(j, d).
+
+myNand(k, b).
+myNand(l, b).
+myNand(m, d).
+myNand(n, c).
+myNand(o, b).
+myNand(p, a).
 
 %% metarules
 metarule([P, Q], ([P, A, B]:-[[Q, A, B]])).
