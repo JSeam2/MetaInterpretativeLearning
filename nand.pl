@@ -2,8 +2,8 @@
  * nand representation representation
  *
  * Test on a sequence of substitution boxes and xors
- * Uses 2 layers of (xor+sbox)
- * key1 = 01, key2 = 01
+ * Uses 1 layer of (xor+sbox)
+ * examples uses all keys
  * 
  * To use load program on prolog and run with
  * ?- a.
@@ -17,26 +17,14 @@ metagol:max_clauses(1000).
 
 
 %% predicates that can be used in learning
-prim(myNand/2).
+prim(myNand/3).
 
 %% definition of tokens
 /*
- * 0000 a
- * 0001 b
- * 0010 c
- * 0011 d
- * 0100 e
- * 0101 f
- * 0110 g
- * 0111 h
- * 1000 i
- * 1001 j
- * 1010 k
- * 1011 l
- * 1100 m
- * 1101 n
- * 1110 o
- * 1111 p
+ * 00 a
+ * 01 b
+ * 10 c
+ * 11 d
  */
 
 %% First order background knowledge
@@ -47,37 +35,61 @@ prim(myNand/2).
  *  1 0 1
  *  1 1 0 
  */
-myNand(a, d).
-myNand(b, d).
-myNand(c, d).
-myNand(d, d).
-myNand(e, d).
 
-myNand(f, c).
-myNand(g, d).
-myNand(h, c).
-myNand(i, d).
-myNand(j, d).
+myNand(a, a, d).
+myNand(a, b, d).
+myNand(a, c, d).
+myNand(a, d, d).
 
-myNand(k, b).
-myNand(l, b).
-myNand(m, d).
-myNand(n, c).
-myNand(o, b).
-myNand(p, a).
+myNand(b, a, d).
+myNand(b, b, c).
+myNand(b, c, d).
+myNand(b, d, c).
+
+myNand(c, a, d).
+myNand(c, b, d).
+myNand(c, c, b).
+myNand(c, d, b).
+
+myNand(d, a, d).
+myNand(d, b, c).
+myNand(d, c, b).
+myNand(d, d, a).
+
+%% myNand(a, d).
+%% myNand(b, d).
+%% myNand(c, d).
+%% myNand(d, d).
+%% myNand(e, d).
+
+%% myNand(f, c).
+%% myNand(g, d).
+%% myNand(h, c).
+%% myNand(i, d).
+%% myNand(j, d).
+
+%% myNand(k, b).
+%% myNand(l, b).
+%% myNand(m, d).
+%% myNand(n, c).
+%% myNand(o, b).
+%% myNand(p, a).
 
 %% metarules
-metarule([P, Q], ([P, A, B]:-[[Q, A, B]])).
+metarule([P, Q, R], ([[P, A, B], [Q, B, C]]:-[[R, A, C]])).
 
 %% learning task
 a :- 
   Pos = [
-  	p(a, b),
-  	p(b, c),
-  	p(c, d),
-  	p(d, a)
+  	p(a, a, b),
+  	p(a, b, c),
+  	p(a, c, d),
+  	p(a, d, a)
   ],
-  learn(Pos, []).
+  Neg = [
+  	p(a, b, a),
+  ]
+  learn(Pos, Neg).
 %%
 %% output
 %% learning p/2

@@ -80,7 +80,7 @@ xor(p, a).
  sbox(d, a).
 
 %% predicates that can be used in learning
-prim(sbox/2).
+%% prim(sbox/2).
 prim(xor/2).
 
 %% metarules
