@@ -10,7 +10,7 @@ metagol:unfold_program.
 
 
 % predicates used 
-prim(nand/2). % 3-arity
+prim(nand/2). % 2-arity
 
 % background knowledge
 % preserve 2-arity
@@ -32,7 +32,6 @@ metarule([P, Q, R], [P, A, B]:-[[Q, A, C],[R, C, B]]). % chain
 
 
 % learn 
-% using all examples based on all keys to find a related pattern results in contradictory clauses
 a :- 
   Pos = [
     p(b,a),
