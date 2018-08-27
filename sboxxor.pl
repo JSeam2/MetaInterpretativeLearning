@@ -80,11 +80,14 @@ xor(p, a).
  sbox(d, a).
 
 %% predicates that can be used in learning
-%% prim(sbox/2).
+prim(sbox/2).
 prim(xor/2).
 
 %% metarules
-metarule([P, Q], ([P, A, B]:-[[Q, A, B]])).
+metarule([P, Q], ([P, A, B]:-[[Q, A, B]])). % identity
+metarule([P, Q], ([P, A, B]:-[[Q, A, C], [P, C, B]])).
+
+
 
 %% learning task
 a :- 

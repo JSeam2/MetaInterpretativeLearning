@@ -13,13 +13,8 @@
  * https://github.com/metagol/metagol
  */
 :- use_module('../metagol').
-
-%% metagol settings
 metagol:max_clauses(100).
 
-%% Learned program should be unfolded to remove unnecessary 
-%% invented predicates
-metagol:unfold_program.
 
 %% predicates that can be used in learning
 prim(myNand/3).
@@ -56,30 +51,24 @@ prim(myNand/3).
  *  11 11 00
  */
 
-myNand(a, a, d).
-myNand(a, b, d).
-myNand(a, c, d).
-myNand(a, d, d).
+myNand(a, d).
+myNand(b, d).
+myNand(c, d).
+myNand(d, d).
 
-myNand(b, a, d).
-myNand(b, b, c).
-myNand(b, c, d).
-myNand(b, d, c).
+myNand(b, c).
+myNand(d, c).
 
-myNand(c, a, d).
-myNand(c, b, d).
-myNand(c, c, b).
-myNand(c, d, b).
+myNand(c, b).
+myNand(d, b).
 
-myNand(d, a, d).
-myNand(d, b, c).
-myNand(d, c, b).
-myNand(d, d, a).
+myNand(d, a).
 
-%% metarules
-metarule([P, Q], ([P, A, B, C]:-[[Q, A, B, C]])).
-metarule([P, Q], ([P, A, B]:-[[Q, A, A, B]])).
-metarule([P, Q, R, S], ([P, A, B, C, D]:-[[R, A, B, E], [S, C, D, F], [Q, E, F, G]])).
+metarule([P,Q],([P,A,B]:-[[Q,A,B]])). % identity
+metarule([P,Q],([P,A,B]:-[[Q,B,A]])). % inverse
+metarule([P,Q,X],([P,A,B]:-[[Q,A,B,X]])). % curry
+metarule([P,Q,R],([P,A,B]:-[[Q,A],[R,A,B]])). % precon
+metarule([P,Q,R],([P,A,B]:-[[Q,A,B],[R,B]])). % postcon
 
 
 %% learning task
