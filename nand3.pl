@@ -10,7 +10,7 @@ metagol:unfold_program.
 
 
 % predicates used 
-prim(nand/3). % 3-arity
+prim(nand/2). % 3-arity
 
 % background knowledge
 % preserve 2-arity
@@ -24,17 +24,19 @@ nand(b, b).
 nand(c, b).
 nand(d, a).
 
-% metarules
-metarule([P, Q], [P, A, B]:-[[Q, A, B]]).
-metarule(mutual,[P,Q,R],([P,A]:-[[Q,A,B],[R,B]]),PS):-
-  member(sym(R,1,_),PS). %% explicitly bind R to a symbol on the predicate signature
+% metarules 
+metarule([P, Q], [P, A, B]:-[[Q, A, B]]). % identity
+metarule([P, Q], [P, A, B]:-[[Q, B, A]]). % inverse
+metarule([P, Q, R], [P, A, B]:-[[Q, A, C],[R, C, B]]). % chain
+
 
 
 % learn 
+% using all examples based on all keys to find a related pattern results in contradictory clauses
 a :- 
   Pos = [
-    p(a,b),
-    p(b,a)
+    p(b,a),
+    p(a,b)
   ],
   Neg = [
   ],
